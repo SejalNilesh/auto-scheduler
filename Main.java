@@ -25,8 +25,9 @@ public class Main {
         }
 
         GraphColoringSolver solver = new GraphColoringSolver();
-        
-        Map<String, Integer> schedule = solver.colorGraph(graph);
+        int maxSlots = 5; // Can be adjusted
+        Map<String, Integer> schedule = solver.colorGraph(graph, exams, maxSlots);
+
         Map<String, String> examToRoom = RoomAssigner.assignRooms(exams, schedule, rooms);
 
         Map<Integer, String> slotToTime = Map.of(
@@ -45,10 +46,11 @@ public class Main {
         for (Map.Entry<String, Integer> entry : schedule.entrySet()) {
             String examId = entry.getKey();
             int slot = entry.getValue();
-            String time = slotToTime.getOrDefault(slot, "UNKNOWN");
-            String room = examToRoom.getOrDefault(examId, "N/A");
+            String time = (slot == -1) ? "UNSCHEDULABLE" : slotToTime.getOrDefault(slot, "UNKNOWN");
+            String room = (slot == -1) ? "-" : examToRoom.getOrDefault(examId, "N/A");
+            String status = (slot == -1) ? "❌ Cannot Schedule" : "✅ OK";
 
-            System.out.printf("| %-5s| %-9d| %-22s| %-14s|\n", examId, slot, time, room);
+            System.out.printf("| %-5s| %-9d| %-22s| %-14s|%-14s|\n", examId, slot, time, room,status);
         }
 
         System.out.println("-----------------------------------------------------------");
