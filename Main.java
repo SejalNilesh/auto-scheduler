@@ -19,10 +19,28 @@ public class Main {
 
         GraphColoringSolver solver = new GraphColoringSolver();
         Map<String, Integer> schedule = solver.colorGraph(graph);
+        Map<Integer, String> slotToTime = Map.of(
+            0, "09:00 AM - 10:00 AM",
+            1, "10:00 AM - 11:00 AM",
+            2, "11:00 AM - 12:00 PM",
+            3, "12:00 PM - 01:00 PM",
+            4, "01:00 PM - 02:00 PM"
+        );
 
-        System.out.println("\nSchedule:");
+        System.out.println("\nFinal Schedule:");
+        System.out.println("-------------------------------------------");
+        System.out.println("| Exam | Slot No. | Time Slot             |");
+        System.out.println("-------------------------------------------");
+
         for (Map.Entry<String, Integer> entry : schedule.entrySet()) {
-            System.out.println("  Exam " + entry.getKey() + " → Slot " + entry.getValue());
+            String examId = entry.getKey();
+            int slot = entry.getValue();
+            String time = slotToTime.getOrDefault(slot, "UNKNOWN");
+            
+            System.out.printf("| %-5s| %-9d| %-22s|\n", examId, slot, time);
         }
+
+        System.out.println("-------------------------------------------");
     }
+            
 }
