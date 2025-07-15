@@ -9,6 +9,13 @@ public class Main {
             new Exam("D", List.of("S3", "S4"), "T3")
         );
 
+        List<Room> rooms = List.of(
+            new Room("R1", 3),
+            new Room("R2", 2),
+            new Room("R3", 2)
+        );
+
+
         GraphBuilder graphBuilder = new GraphBuilder();
         Map<String, Set<String>> graph = graphBuilder.buildConflictGraph(exams);
 
@@ -18,7 +25,10 @@ public class Main {
         }
 
         GraphColoringSolver solver = new GraphColoringSolver();
+        
         Map<String, Integer> schedule = solver.colorGraph(graph);
+        Map<String, String> examToRoom = RoomAssigner.assignRooms(exams, schedule, rooms);
+
         Map<Integer, String> slotToTime = Map.of(
             0, "09:00 AM - 10:00 AM",
             1, "10:00 AM - 11:00 AM",
@@ -26,21 +36,22 @@ public class Main {
             3, "12:00 PM - 01:00 PM",
             4, "01:00 PM - 02:00 PM"
         );
-
+        
         System.out.println("\nFinal Schedule:");
-        System.out.println("-------------------------------------------");
-        System.out.println("| Exam | Slot No. | Time Slot             |");
-        System.out.println("-------------------------------------------");
+        System.out.println("-----------------------------------------------------------");
+        System.out.println("| Exam | Slot No. | Time Slot             | Room Assigned |");
+        System.out.println("-----------------------------------------------------------");
 
         for (Map.Entry<String, Integer> entry : schedule.entrySet()) {
             String examId = entry.getKey();
             int slot = entry.getValue();
             String time = slotToTime.getOrDefault(slot, "UNKNOWN");
-            
-            System.out.printf("| %-5s| %-9d| %-22s|\n", examId, slot, time);
+            String room = examToRoom.getOrDefault(examId, "N/A");
+
+            System.out.printf("| %-5s| %-9d| %-22s| %-14s|\n", examId, slot, time, room);
         }
 
-        System.out.println("-------------------------------------------");
+        System.out.println("-----------------------------------------------------------");
     }
-            
+    
 }
