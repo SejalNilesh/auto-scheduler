@@ -2,18 +2,8 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        List<Exam> exams = List.of(
-            new Exam("A", List.of("S1", "S2"), "T1"),
-            new Exam("B", List.of("S2", "S3"), "T2"),
-            new Exam("C", List.of("S1"), "T1"),
-            new Exam("D", List.of("S3", "S4"), "T3")
-        );
-
-        List<Room> rooms = List.of(
-            new Room("R1", 3),
-            new Room("R2", 2),
-            new Room("R3", 2)
-        );
+        List<Exam> exams = CSVLoader.loadExams("exams.csv");
+        List<Room> rooms = CSVLoader.loadRooms("rooms.csv");
 
 
         GraphBuilder graphBuilder = new GraphBuilder();

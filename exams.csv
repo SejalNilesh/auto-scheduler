@@ -1,0 +1,7 @@
+ExamID,Students,Teacher
+A,S1|S2|S3,T1
+B,S2|S4,T2
+C,S1|S4|S5,T3
+D,S3|S5,T4
+E,S1|S3,T5
+F,S2|S5,T6
