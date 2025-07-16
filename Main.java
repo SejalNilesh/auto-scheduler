@@ -24,10 +24,13 @@ public class Main {
             System.out.println("  " + entry.getKey() + " → " + entry.getValue());
         }
 
-        GraphColoringSolver solver = new GraphColoringSolver();
-        int maxSlots = 5; // Can be adjusted
-        Map<String, Integer> schedule = solver.colorGraph(graph, exams, maxSlots);
+        // GraphColoringSolver solver = new GraphColoringSolver();
+        // int maxSlots = 5; // Can be adjusted
+        // Map<String, Integer> schedule = solver.colorGraph(graph, exams, maxSlots);
 
+        BacktrackingScheduler scheduler = new BacktrackingScheduler();
+        int maxSlots = 5;
+        Map<String, Integer> schedule = scheduler.scheduleExams(graph, exams, maxSlots);
         Map<String, String> examToRoom = RoomAssigner.assignRooms(exams, schedule, rooms);
 
         Map<Integer, String> slotToTime = Map.of(
