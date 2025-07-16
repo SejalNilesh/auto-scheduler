@@ -30,8 +30,11 @@ public class Main {
 
         BacktrackingScheduler scheduler = new BacktrackingScheduler();
         int maxSlots = 5;
-        Map<String, Integer> schedule = scheduler.scheduleExams(graph, exams, maxSlots);
-        Map<String, String> examToRoom = RoomAssigner.assignRooms(exams, schedule, rooms);
+        BacktrackingScheduler.ScheduleResult result = scheduler.scheduleExams(graph, exams, rooms, maxSlots);
+        Map<String, Integer> schedule = result.examToSlot;
+        Map<String, String> examToRoom = result.examToRoom;
+
+        // Map<String, String> examToRoom = RoomAssigner.assignRooms(exams, schedule, rooms);
 
         Map<Integer, String> slotToTime = Map.of(
             0, "09:00 AM - 10:00 AM",
