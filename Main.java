@@ -48,8 +48,9 @@ public class Main {
 
             System.out.printf("| %-5s| %-9d| %-22s| %-14s|%-14s|\n", examId, slot, time, room,status);
         }
+       System.out.println("-----------------------------------------------------------");
+       ScheduleExporter.saveScheduleToCSV(schedule, examToRoom, slotToTime, "schedule.csv");
 
-        System.out.println("-----------------------------------------------------------");
     }
     
 }
